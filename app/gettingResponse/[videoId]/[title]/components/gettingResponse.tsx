@@ -193,12 +193,12 @@ const GettinResponse = () => {
     // setIsTextareaFocused(false);
   };
 
-  const handleTopCommentTextareaChange = (event:any) => {
+  const handleTopCommentTextareaChange = (event: any) => {
     setTopCommentTextareaValue(event.target.value);
     console.log(topcommenttextareaValue);
   };
 
-  const handleReplyCommentTextareaChange = (event:any) => {
+  const handleReplyCommentTextareaChange = (event: any) => {
     setReplyCommentTextareaValue(event.target.value);
     console.log(replycommenttextareaValue);
   };
@@ -212,11 +212,13 @@ const GettinResponse = () => {
     return `${Math.floor(time / 60)}:${Math.floor(time % 60)}`;
   };
 
-  const handleCommentId = (commentId:any) => {
+  const handleCommentId = (commentId: any) => {
     setActiveCommentId(commentId);
   };
 
   const fetchComments = async () => {
+    console.log("entered fetchComments");
+
     try {
       console.log("videoId", videoId);
 
@@ -233,7 +235,7 @@ const GettinResponse = () => {
       }
       // const data = await response.json();
       const parentComments = response.comments.filter(
-        (comment:any) => !comment.parentCommentId
+        (comment: any) => !comment.parentCommentId
       );
       console.log("parentComments:", parentComments);
       // setComments(data.comments);
@@ -251,7 +253,7 @@ const GettinResponse = () => {
       //   // Perform the comparison
       //   return dateA.getTime() - dateB.getTime();
       // });
-      const sortComments : any = (comments: Comment[]) => {
+      const sortComments: any = (comments: Comment[]) => {
         return comments
           .sort((a, b) => {
             const dateA = new Date(a.createdAt);
@@ -297,14 +299,14 @@ const GettinResponse = () => {
     console.log(`set replytype:${typeReplyComment}`);
   }
 
-  const topLevelCommentRequestBody:any = {
+  const topLevelCommentRequestBody: any = {
     content: topcommenttextareaValue,
     userId,
     timeStamp: isCheckboxChecked ? formatTime(currentTime ?? 0) : null,
     parentCommentId: null as string | null,
     type: typeComment, // Adjust the type based on your requirements
   };
-  let replyCommentRequestBody:any = {
+  let replyCommentRequestBody: any = {
     content: replycommenttextareaValue,
     userId,
     timeStamp: isCheckboxChecked ? formatTime(currentTime ?? 0) : null,
@@ -363,7 +365,7 @@ const GettinResponse = () => {
 
       // Assuming the response contains the newly created comment
       // const newComment = await response.json();
-      // fetchComments();
+      fetchComments();
       // You can handle the new comment data as needed
       console.log("New Comment:", response);
       toast.success("New Comment Created");
@@ -377,10 +379,10 @@ const GettinResponse = () => {
     } catch (error) {
       console.error("Coudnt update status");
     }
-    await fetchComments();
+    // await fetchComments();
   };
 
-  const handleChange = (isChecked:any) => {
+  const handleChange = (isChecked: any) => {
     // Your custom logic here
     console.log("Checkbox is checked:", isChecked);
     setIsCheckboxChecked(isChecked);
@@ -398,16 +400,16 @@ const GettinResponse = () => {
   };
 
   //functions used for recording
-  const handleRecordingComplete = (data:any) => {
+  const handleRecordingComplete = (data: any) => {
     setRecordedVideoLink(data);
   };
 
-  const handleToggle = (event:any) => {
+  const handleToggle = (event: any) => {
     event.preventDefault();
     setIsIcon1Visible(!isIcon1Visible);
   };
 
-  const handleStartRecording = (event:any) => {
+  const handleStartRecording = (event: any) => {
     event.preventDefault();
     setMainCommentPostButtonShow(false);
     setReplyCommentPostButtonShow(false);
@@ -419,7 +421,7 @@ const GettinResponse = () => {
     setIsNotRecording(false);
   };
 
-  const handleStopRecording = async (event:any) => {
+  const handleStopRecording = async (event: any) => {
     event.preventDefault();
 
     console.log("hadleStartRecord111");
@@ -529,7 +531,10 @@ const GettinResponse = () => {
       console.error("Error updating recipient status:", error);
     }
   };
-  const handleCreateVideoComment = async (event: any, parentCommentId?: string) => {
+  const handleCreateVideoComment = async (
+    event: any,
+    parentCommentId?: string
+  ) => {
     event.preventDefault();
 
     console.log("called top level video comment creation");
@@ -589,7 +594,7 @@ const GettinResponse = () => {
     await fetchComments();
   };
 
-  const handlePostButton = (selectedTab:any) => {
+  const handlePostButton = (selectedTab: any) => {
     // if (newValue === "screen") {
     // // Call your function here
     // setPostButtonShow(false);
@@ -598,20 +603,20 @@ const GettinResponse = () => {
     // }
   };
 
-  const handleTopLevelCommentTabsValue = (value:any) => {
+  const handleTopLevelCommentTabsValue = (value: any) => {
     setTopLevelCommentTabsValue(value);
   };
-  const handleReplyCommentTabsValue = (value:any) => {
+  const handleReplyCommentTabsValue = (value: any) => {
     console.log("handleReplyCommentTabsValue", value);
 
     setReplyCommentTabsValue(value);
     // console.log(replyCommentTabsValue);
   };
 
-  const handleTimeStampClick = (timeStamp:any) => {
+  const handleTimeStampClick = (timeStamp: any) => {
     setSelectedTimeStamp(timeStamp);
   };
-  const formattedDate = (unformattedTime:any) => {
+  const formattedDate = (unformattedTime: any) => {
     const parsedDate = parseISO(unformattedTime);
     const formattedDate = isToday(parsedDate)
       ? formatDistanceToNow(parsedDate, { addSuffix: true })
@@ -632,7 +637,7 @@ const GettinResponse = () => {
   };
 
   // Function to handle hover over a comment
-  const handleMainCommentHover = (commentId:any) => {
+  const handleMainCommentHover = (commentId: any) => {
     console.log("commentId from handleMainCommentHover", commentId);
 
     setHoveredMainCommentId(commentId);
@@ -643,7 +648,7 @@ const GettinResponse = () => {
     setHoveredMainCommentId(null);
   };
 
-  const handleReplyCommentHover = (commentId:any) => {
+  const handleReplyCommentHover = (commentId: any) => {
     console.log("commentId from handleReplyCommentHover", commentId);
 
     setHoveredReplyCommentId(commentId);
@@ -654,7 +659,7 @@ const GettinResponse = () => {
     setHoveredReplyCommentId(null);
   };
 
-  const handleDeleteComment = async (commentId:any) => {
+  const handleDeleteComment = async (commentId: any) => {
     console.log("called handleDeleteCommment and replyCommendID:", commentId);
 
     try {
@@ -665,33 +670,44 @@ const GettinResponse = () => {
       //   }
       // );
       const response = await fetchData({
-        url: `/comments/deletecomment/${commentId}`,
-        method: "post",
-        body: null,
+        // url: `/comments/deletecomment/${commentId}`,
+        url: `/comments/deletecomment`,
+
+        method: "delete",
+        body: { commentId },
       });
+      // const responseData = response.json();
+
       console.log("response delete comment:", response);
 
       if (response) {
         const comment = comments.find((comment) => comment.id === commentId);
         if (comment) {
+          console.log("parentId comment:", comment.parentCommentId);
+
           if (!comment.parentCommentId) {
             // It's a parent comment, filter it and its replies
             setComments((prevComments) =>
               prevComments.filter((c) => c.id !== commentId)
             );
           } else {
+            console.log("replycommentdeleting:sscscsdcdcscs");
+
             // It's a reply, update the replies of its parent
-            setComments((prevComments) =>
-              prevComments.map((comment) => ({
-                ...comment,
-                replies: comment.replies.filter(
-                  (reply) => reply.id !== commentId
-                ),
-              }))
-            );
+            // setComments((prevComments) =>
+            //   prevComments.map((comment) => ({
+            //     ...comment,
+            //     replies: comment.replies.filter(
+            //       (reply) => reply.id !== commentId
+            //     ),
+            //   }))
+            // );
           }
           toast.success("Comment Deleted Successfully");
+        } else {
+          toast.success("Comment Deleted Successfully");
         }
+        await fetchComments();
       } else {
         throw new Error("Failed to delete comment");
       }
@@ -700,35 +716,38 @@ const GettinResponse = () => {
     }
   };
   const router = useRouter();
-  useEffect(() => {
-    let parts = pathname.split("/");
-    setVideoId(parts[2]);
-    // if (session) {
-    //   userName = session?.user?.name;
-    // }
-    setTitle(decodeURIComponent(parts[3]));
-    console.log("title", title);
-    console.log("from useeffect", videoId, userId, status);
+  useEffect(
+    () => {
+      let parts = pathname.split("/");
+      setVideoId(parts[2]);
+      // if (session) {
+      //   userName = session?.user?.name;
+      // }
+      setTitle(decodeURIComponent(parts[3]));
+      console.log("title", title);
+      console.log("from useeffect", videoId, userId, status);
 
-    if (videoId && userId && status) {
-      console.log("from useeffect called");
-      if (videoStatus === "") {
-        handleUpdateStatus(opendStatus);
+      if (videoId && userId && status) {
+        console.log("from useeffect called");
+        if (videoStatus === "") {
+          handleUpdateStatus(opendStatus);
+        }
+      } else {
+        console.log("couldnt update");
       }
-    } else {
-      console.log("couldnt update");
-    }
-    if (videoId) {
-      fetchComments();
-    }
+      if (videoId) {
+        fetchComments();
+      }
 
-    console.log("testing", videoId);
-  }, [pathname, videoId, userId, videoStatus] as any);
+      console.log("testing", videoId);
+    },
+    [pathname, videoId, userId, videoStatus] as any
+  );
 
   return (
     <>
       <div className="flex justify-left items-center bg-white w-full h-[42px]  ">
-        <div className="flex w-48 justify-around  h-full items-center">
+        <div className="flex w-48 justify-center gap-2   h-full items-center">
           <button
             className="hover:bg-slate-200 h-3/4"
             onClick={() => router.back()}

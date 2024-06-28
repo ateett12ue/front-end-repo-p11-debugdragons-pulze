@@ -6,7 +6,7 @@ import CaughtUp from "../../components/caughtUp";
 import NotificationTab from "../../components/notificationTab";
 import { useSession } from "next-auth/react";
 
-const ActivityPage = ({ userVideos, workspace, handleDeleteVideo }:any) => {
+const ActivityPage = ({ userVideos, workspace, handleDeleteVideo }: any) => {
   const { data: session, status } = useSession();
   const [currentTime, setCurrentTime] = useState(new Date());
   let filteredUserVideos;
@@ -25,6 +25,9 @@ const ActivityPage = ({ userVideos, workspace, handleDeleteVideo }:any) => {
       const responseTime = video.sendVideos?.[0]?.responseTime;
       if (!responseTime) {
         return true; // If responseTime is not there, add the video to filteredVideos
+      }
+      if (responseTime === "1970-01-01T00:00:00.000Z") {
+        return true;
       }
       const responseDateTime = new Date(
         responseTime.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
@@ -74,17 +77,23 @@ const ActivityPage = ({ userVideos, workspace, handleDeleteVideo }:any) => {
       <div className="notification-container">
         <div className="flex flex-col mx-3 my-6">
           <div>Done for now</div>
-          {userVideos?.map((video:any) => {
+          {userVideos?.map((video: any) => {
             {
               /* {userVideos?.map((video) => { */
             }
             const recipients = video?.sendVideos?.[0]?.recipients;
 
             if (recipients && recipients.length > 0) {
+              const responseTimeWithoutConvertToDate =
+                video.sendVideos?.[0]?.responseTime;
               const responseTime = new Date(
                 video.sendVideos?.[0]?.responseTime
               );
-              if (currentTime > responseTime) {
+              if (
+                responseTimeWithoutConvertToDate !==
+                  "1970-01-01T00:00:00.000Z" &&
+                currentTime > responseTime
+              ) {
                 return (
                   <>
                     {/* <div>{video.video_id}</div> */}

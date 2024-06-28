@@ -63,6 +63,8 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
     newVideo.style.display = "none";
     (document.body || document.documentElement).appendChild(newVideo);
   };
+  let screenStream;
+  let cameraStream = null;
   const startRecording = async () => {
     setIsRecording(true);
     setVideoVisible(true);
@@ -92,7 +94,6 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
 
     recorder.current.startRecording();
   };
-  let screenStream, cameraStream;
 
   const invokeGetDisplayMedia = async () => {
     const displayMediaConstraints = {
@@ -139,7 +140,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
           videoElement.current.src = URL.createObjectURL(blob);
           videoElement.current.muted = false;
         }
-        if (screenStream && screenStream.getTracks) {
+        if (screenStream) {
           if (screenStream.getTracks) {
             screenStream.getTracks().forEach((track) => {
               track.stop();
@@ -154,6 +155,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
             });
           }
         }
+        // stopCamera();
         const timestamp = new Date()
           .toISOString()
           .replace(/[^a-zA-Z0-9]/g, "_");
@@ -347,29 +349,38 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
       //   }
       // );
 
-      const response = await fetchData({
-        url: `/comments/createvideocomment/${videoId}`,
-        method: "post",
-        body: formData,
-      });
+      // const response = await fetchData({
+      //   url: `/comments/createvideocomment/${videoId}`,
+      //   method: "post",
+      //   body: formData,
+      // });
+
+      const response = await fetch(
+        `https://back-end-repo-p11-debugdragons-pulze.onrender.com/api/comments/createvideocomment/${videoId}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
       if (!response) {
         console.error(`Error uploading video:`);
       }
-      // const responseData = await response.json();
+      const responseData = await response.json();
 
-      const { result, success } = response;
+      const { result, success } = responseData;
 
       if (
         result.VideoUploadedToS3Details &&
         result.VideoUploadedToS3Details.key
       ) {
         setResultVideosrccontext(
-          `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.key}`
+          `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.Key}`
         );
         // console.log("Server Response:", responseData);
         // console.log("Server Response result:", result);
         setResultVideosrc(
-          `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.key}`
+          `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.Key}`
         );
       }
       // console.log(` src:${resultVideosrccontext}`);

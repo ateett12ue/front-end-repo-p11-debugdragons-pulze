@@ -7,6 +7,7 @@ import { workspace } from "./dashboard";
 import {
   AlarmClockOffIcon,
   ChevronDown,
+  ChevronUp,
   Cloud,
   CreditCard,
   Github,
@@ -57,6 +58,10 @@ const DropDown = (props: Props) => {
 
   console.log("selectedWorkspace in dropdown:", props.selectedWorkspace);
 
+  const handleClick = () => {
+    console.log("clicked workspace");
+  };
+
   useEffect(() => {
     if (props.selectedWorkspace) {
       setLoading(false);
@@ -66,20 +71,23 @@ const DropDown = (props: Props) => {
     <div className="flex flex-col w-full text-[#0F172A]">
       <div
         className="flex flex-row justify-center items-center cursor-pointer w-full "
-        onClick={() => setToggle(!toggle)}
+        // onClick={() => setToggle(!toggle)}
       >
         {/* <WorkSpaceSelectingDropDown /> */}
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild className="border-0 border-none">
-            <Button className="flex justify-center gap-3 h-10 sm:w-[82%] md:w-[86%]  lg:w-[87%] bg-white relative text-[#0F172A] font-semibold border-none border-0 hover:bg-white">
+            <Button
+              className="flex justify-center gap-3 h-10 sm:w-[82%] md:w-[86%]  lg:w-[87%] bg-white relative text-[#0F172A] font-semibold border-none border-0 hover:bg-white"
+              onClick={handleClick}
+            >
               {loading ? (
                 <LoadingSpinner />
               ) : (
                 `${props.selectedWorkspace?.name}'s team` || "Select WorkSpace"
               )}
               {/* {props.selectedWorkspace?.name} */}
-              {loading ? "" : <ChevronDown />}
+              {loading ? "" : toggle ? <ChevronUp /> : <ChevronDown />}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">

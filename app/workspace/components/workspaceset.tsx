@@ -121,7 +121,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
         console.error("Error response:", data.error);
         toast("error", data.error);
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.error("Error sending video:", error);
       toast("error", error?.error);
     }
@@ -167,7 +167,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
         toast.error(response?.error);
       }
       setModelOpen(false);
-    } catch (error:any) {
+    } catch (error: any) {
       console.log("Error leaving Workspace", error);
       // toast("Error leaving Workspace");
       toast.error(error?.error);
@@ -214,7 +214,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
         toast(response?.error);
       }
       setModelOpen(false);
-    } catch (error:any) {
+    } catch (error: any) {
       console.error("Error deleting Workspace", error);
       toast("Error deleting Workspace", error?.error);
     }
@@ -222,14 +222,14 @@ export function WorkSpaceSet(props: WorkspaceProps) {
   return (
     <Dialog open={modelOpen} onOpenChange={setModelOpen}>
       <DialogTrigger asChild>
-        <span className="flex flex-row font-[Inter] font-normal text-sm text-left items-center ml-2 gap-1">
+        <span className="flex flex-row font-[Poppins] font-normal text-sm text-left items-center ml-2 gap-1">
           <IoMdSettings className="" />
           Workspace Settings
         </span>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] flex flex-col justify-center rounded-lg border border-slate-500  min-w-[500px] min-h-[300px] ">
         <DialogHeader>
-          <DialogTitle className="font-poppins items-start font-bold ml-[30px] mx-0 text-2xl text-lg">
+          <DialogTitle className="font-poppins items-start font-bold ml-[30px] mx-0 text-lg">
             Workspace Settings
           </DialogTitle>
         </DialogHeader>
@@ -260,7 +260,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
           </div>
         </div> */}
         <div className="flex flex-col">
-          <div className="flex flex-row justify-start cursor-pointer text-lg font-semibold border-b-2 border-slate-700">
+          <div className="flex flex-row justify-start cursor-pointer text-md font-semibold border-b-2 border-slate-700">
             <div
               className={
                 tab == 1
@@ -287,13 +287,13 @@ export function WorkSpaceSet(props: WorkspaceProps) {
               {tab == 1 && (
                 <div className="mt-2">
                   <div className="mt-2">
-                    <div className="font-semibold">Workspace Name</div>
+                    <div className="font-semibold text-md">Workspace Name</div>
                     <div className="flex flex-row w-full justify-between mt-4">
                       <div>
                         <Input
                           id="workspace_name"
                           placeholder="Enter your workspace name"
-                          className="w-[300px]"
+                          className="w-[300px] rounded-r-md"
                           value={workspaceName}
                           disabled={workspace?.workspace_creator_id != userId}
                           onChange={(e) => {
@@ -304,8 +304,9 @@ export function WorkSpaceSet(props: WorkspaceProps) {
                       <div>
                         <Button
                           type="submit"
-                          className="text-white bg-[#8645FF] rounded-r-md font-[Inter] font-semibold text-lg w-[120px]"
+                          className="text-white bg-[#8645FF] rounded-r-md font-[Poppins] font-semibold text-md w-[120px]"
                           onClick={() => updateWorkspaceName()}
+                          size="default"
                         >
                           Save
                         </Button>
@@ -327,7 +328,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
                   <div className="flex flex-row justify-between mt-8 flex-wrap">
                     <Button
                       type="submit"
-                      className="text-white bg-[#DC2626] rounded-r-md font-[Inter] font-semibold text-lg w-[200px]"
+                      className="text-white bg-[#DC2626] rounded-r-md font-[Inter] font-semibold text-md w-[200px]"
                       onClick={leaveWorkspace}
                     >
                       Leave Workspace
@@ -335,8 +336,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
                     {props.selectedWorkspace?.workspace_creator_id ==
                       userId && (
                       <Button
-                        type="submit"
-                        className="text-white bg-[#DC2626] rounded-r-md font-[Inter] font-semibold text-lg w-[200px]"
+                        className="text-white bg-[#DC2626] rounded-r-md font-[Inter] font-semibold text-md w-[200px]"
                         onClick={deleteWorkspace}
                       >
                         Delete Workspace
@@ -350,7 +350,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
               {tab == 2 && (
                 <div>
                   <div className="pl-4">
-                    <h3 className="font-medium font-poppins text-lg font-semibold text-[#000000] capitalize mt-4">
+                    <h3 className="font-medium font-poppins text-md  text-[#000000] capitalize mt-4">
                       {workspaceMembers.length} Member
                     </h3>
 
@@ -358,12 +358,12 @@ export function WorkSpaceSet(props: WorkspaceProps) {
                       return (
                         <div className="flex flex-row mt-6 items-center w-full justify-between">
                           <div className="flex flex-row items-center">
-                            <div className="scale-[2]">
+                            <div className="scale-[1.5]">
                               {" "}
                               <AvatarDemo imageUrl={workspaceMember?.image} />
                             </div>
                             <div className="flex flex-col ml-4">
-                              <p className="font-semibold font-poppins text-lg">
+                              <p className="font-semibold font-poppins text-md">
                                 {workspaceMember?.name}
                               </p>
                               <p className="font-normal font-poppins  text-xs text-[#474545] tracking-wider">
@@ -371,7 +371,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
                               </p>
                             </div>
                           </div>
-                          <div className="font-semibold font-poppins text-base">
+                          <div className="font-semibold font-poppins text-md">
                             <p>
                               {workspaceMember?.role == "admin"
                                 ? "Admin"

@@ -58,28 +58,29 @@ export function CreatingWorkspace(props: WorkspaceProps) {
         console.error("workspace not created", response);
         toast.error("try again", response);
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.error("Error creating workspace:", error);
       toast.error(error?.error);
     }
   };
   return (
     <Dialog open={openModel} onOpenChange={setOpenModel}>
-      <DialogTrigger asChild className="">
-        <span className="flex flex-row font-[Inter] font-normal text-sm text-left justify-center items-center ml-2 gap-1">
-          <FaPlus className="" />
+      <DialogTrigger asChild>
+        <span className="flex flex-row font-[Poppins] font-normal text-sm text-left justify-center items-center m-1">
+          <FaPlus className="ml-0.5" />
           New Workspace
         </span>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] flex flex-col justify-center items-center rounded-lg border border-slate-500">
-        <DialogHeader>
-          <div className="scale-50 mt-[-30px] ml-[70px] ">
+      <DialogContent className="sm:max-w-[425px] flex flex-col  items-center  rounded-lg border border-slate-500">
+        <DialogHeader className=" flex flex-col justify-start    items-center ">
+          {/* <div className="scale-50 mt-[-30px]  "> */}
+          <div className="scale-50   ">
             <FlaggIcon />
           </div>
-          <DialogTitle className="font-poppins  font-bold ml-[70px] text-2xl absolute top-[150px]">
+          <DialogTitle className="font-poppins   font-bold  text-lg absolute top-[190px]">
             Name your workspace
           </DialogTitle>
-          <DialogDescription className="font-poppins font-normal text-xl text-center">
+          <DialogDescription className="font-poppins font-normal text-sm text-center ">
             A workspace is shared home for you andyour coworkers to collaborate
             on pulze
           </DialogDescription>
@@ -98,7 +99,7 @@ export function CreatingWorkspace(props: WorkspaceProps) {
         <DialogFooter className="items-center">
           <Button
             type="submit"
-            className="bg-[#8645FF] hover:bg-[#8645FF] w-[360px] rounded-r-md font-[Inter] font-semibold text-xl"
+            className="bg-[#8645FF] hover:bg-[#8645FF] w-[360px] rounded-r-md  font-semibold text-lg"
             onClick={createWorkspace}
           >
             Create Workspace

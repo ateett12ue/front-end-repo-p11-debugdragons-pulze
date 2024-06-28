@@ -3,6 +3,7 @@ import { LogOutPopUp } from "./LogOutPopUp";
 import { Settings } from "./AccountSettings";
 import { AvatarDemo } from "./avatar";
 import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
 import { useSession, signOut } from "next-auth/react";
 import { fetchData } from "../../utils/axios";
 export interface User {
@@ -66,23 +67,27 @@ const Account = () => {
 
   return (
     <div>
-      <div className="relative flex mx-2">
-        <p>
-          <a className="absolute shadow-xl w-full bottom-1 left-0 flex flex-col font-[Inter] justify-start font-normal text-sm text-left m-1 ">
-            {showSettings && <Settings setOpenSettings={toggleOpenSettings} />}
-            {showLogOut && <LogOutPopUp />}
-          </a>
-        </p>
-      </div>
-      <div
-        className="flex  flex-row items-center justify-center px-2 h-12 cursor-pointer"
-        onClick={toggleBoth}
-      >
-        <AvatarDemo imageUrl={user?.image} />
+      <div className="w-full font-[Poppins] ">
+        <div className="relative flex mx-2">
+          <p>
+            <a className="absolute shadow-xl w-full bottom-1 left-0 flex flex-col  justify-start font-normal text-sm text-left m-1 ">
+              {showSettings && (
+                <Settings setOpenSettings={toggleOpenSettings} />
+              )}
+              {showLogOut && <LogOutPopUp />}
+            </a>
+          </p>
+        </div>
+        <div
+          className="flex  flex-row items-center justify-between px-2 h-12 cursor-pointer w-full"
+          onClick={toggleBoth}
+        >
+          <div className="flex justify-center item-center "></div>
+          <AvatarDemo imageUrl={user?.image} />
 
-        <p className="px-2">{user?.name}</p>
-
-        <IoIosArrowDown />
+          <p className="px-2">{user?.name}</p>
+        </div>
+        {showSettings ? <IoIosArrowUp /> : <IoIosArrowDown />}
       </div>
     </div>
   );
