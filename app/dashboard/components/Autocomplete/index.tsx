@@ -305,6 +305,9 @@ export default function AutoComplete({
     console.log("clickedOnDialogTrigger:", clickedOnDialogTrigger);
   }, [clickedOnDialogTrigger]);
 
+  const allSelectedUsersToggledOn = selectedUsers.every(
+    (user) => user.isToggleOn
+  );
   return (
     <Container className=" flex  justify-start  w-full">
       {/* <h1 className="text-4xl font-bold text-blue-600">Pick Users</h1> */}
@@ -345,7 +348,10 @@ export default function AutoComplete({
                   className="text-violet-600 flex justify-center  gap-1 cursor-pointer font-poppins font-light text-sm"
                 >
                   <Clock size={18} className="mt-0.5" />
-                  <p>Respond in {formattedHours}</p>
+                  <p>
+                    Respond in `
+                    {!allSelectedUsersToggledOn ? formattedHours : "0 hours"}`
+                  </p>
                 </div>
               ) : (
                 <DateTimePicker

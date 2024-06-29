@@ -26,15 +26,17 @@ const UserSearch: React.FC<UserSearchProps> = ({
   console.log("matchedUsers:", matchedUsers);
   return (
     <div className="w-full  mt-2">
-      <input
-        className="outline outline-0 w-full bg-gray-100 "
-        type="text"
-        placeholder="Enter email"
-        value={searchQuery}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-        onClick={() => setDropdownOpen(true)}
-      />
+      {(matchedUsers ?? []).length != 0 && (
+        <input
+          className="outline outline-0 w-full bg-gray-100 "
+          type="text"
+          placeholder="Enter email"
+          value={searchQuery}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          onClick={() => setDropdownOpen(true)}
+        />
+      )}
       {isDropdownOpen && (
         <ul className="bg-white border rounded shadow-2xl max-h-80 overflow-auto absolute z-40">
           {(matchedUsers ?? []).map((user, index) => (

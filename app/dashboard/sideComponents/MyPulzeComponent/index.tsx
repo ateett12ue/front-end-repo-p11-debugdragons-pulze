@@ -39,17 +39,20 @@ const ActivityPage = ({
   receivedVideos: initialReceivedVideos,
   handleDeleteVideo,
   workspace,
-}:any) => {
+}: any) => {
   const { data: session, status } = useSession();
   const [currentTime, setCurrentTime] = useState(new Date());
   const user_id = session?.user.id;
   let filteredUserVideos;
   if (userVideos) {
     console.log("userVideos in ACtivity Page:", userVideos);
-    filteredUserVideos = userVideos.filter((video:any) => {
+    filteredUserVideos = userVideos.filter((video: any) => {
       const responseTimeFromVideo = video.sendVideos?.[0]?.responseTime;
 
       if (responseTimeFromVideo) {
+        if (responseTimeFromVideo === "1970-01-01T00:00:00.000Z") {
+          return true;
+        }
         const responseTime = new Date(
           responseTimeFromVideo.toLocaleString("en-US", {
             timeZone: "Asia/Kolkata",
@@ -60,23 +63,28 @@ const ActivityPage = ({
     });
   }
 
-  const recievedVideos = initialReceivedVideos.map((video:any) => {
+  const recievedVideos = initialReceivedVideos.map((video: any) => {
     const responseTime = new Date(video.sendVideo.responseTime);
     console.log("recieved responseTime unfiltered", responseTime);
     // console.log("recieved responseTime unfiltered currentTime", currentTime);
   });
 
   const filteredReceivedVideos = initialReceivedVideos.filter(
-    (recievedvideo:any) => {
+    (recievedvideo: any) => {
       const responseTimeFromVideo = recievedvideo.sendVideo.responseTime;
-      const responseTime = new Date(
-        responseTimeFromVideo.toLocaleString("en-US", {
-          timeZone: "Asia/Kolkata",
-        })
-      );
-      console.log("recieved responseTime filtered", responseTime);
+      if (responseTimeFromVideo) {
+        if (responseTimeFromVideo === "1970-01-01T00:00:00.000Z") {
+          return true;
+        }
+        const responseTime = new Date(
+          responseTimeFromVideo.toLocaleString("en-US", {
+            timeZone: "Asia/Kolkata",
+          })
+        );
+        console.log("recieved responseTime filtered", responseTime);
 
-      return currentTime < responseTime;
+        return currentTime < responseTime;
+      }
     }
   );
   // console.log("filteredRecievedVideo", filteredReceivedVideos);
@@ -110,14 +118,20 @@ const ActivityPage = ({
             <>
               <div>Send Pulzes</div>
               {/* {userVideos.map((video) => { */}
-              {filteredUserVideos.map((video:any) => {
+              {filteredUserVideos.map((video: any) => {
                 const recipients = video?.sendVideos?.[0]?.recipients;
 
                 if (recipients && recipients.length > 0) {
+                  const responseTimeWithoutConvertToDate =
+                    video.sendVideos?.[0]?.responseTime;
                   const responseTime = new Date(
                     video.sendVideos?.[0]?.responseTime
                   );
-                  if (currentTime < responseTime) {
+                  if (
+                    responseTimeWithoutConvertToDate ===
+                      "1970-01-01T00:00:00.000Z" ||
+                    currentTime < responseTime
+                  ) {
                     return (
                       <NotificationTab
                         key={video.video_id}
@@ -138,11 +152,17 @@ const ActivityPage = ({
               <div>Recieve Pulzes</div>
 
               {/* {receivedVideos.map((recievedvideo) => { */}
-              {filteredReceivedVideos.map((recievedvideo:any) => {
+              {filteredReceivedVideos.map((recievedvideo: any) => {
+                const responseTimeWithoutConvertToDate =
+                  recievedvideo.sendVideo.responseTime;
                 const responseTime = new Date(
                   recievedvideo.sendVideo.responseTime
                 );
-                if (currentTime < responseTime) {
+                if (
+                  responseTimeWithoutConvertToDate ===
+                    "1970-01-01T00:00:00.000Z" ||
+                  currentTime < responseTime
+                ) {
                   return (
                     <>
                       {/* <div>{recievedvideo.sendVideo.video.video_id}</div> */}
@@ -175,9 +195,14 @@ const ActivityPage = ({
         <div className="flex flex-col mx-3 my-6">
           Closed
           {/* {receivedVideos.map((recievedvideo) => { */}
-          {initialReceivedVideos.map((recievedvideo:any) => {
+          {initialReceivedVideos.map((recievedvideo: any) => {
+            const responseTimeWithoutConvertToDate =
+              recievedvideo.sendVideo.responseTime;
             const responseTime = new Date(recievedvideo.sendVideo.responseTime);
-            if (currentTime > responseTime) {
+            if (
+              responseTimeWithoutConvertToDate !== "1970-01-01T00:00:00.000Z" &&
+              currentTime > responseTime
+            ) {
               return (
                 <>
                   {/* <div>{recievedvideo.sendVideo.video.video_id}</div> */}
@@ -194,14 +219,20 @@ const ActivityPage = ({
               );
             }
           })}
-          {userVideos.map((video:any) => {
+          {userVideos.map((video: any) => {
             const recipients = video?.sendVideos?.[0]?.recipients;
 
             if (recipients && recipients.length > 0) {
+              const responseTimeWithoutConvertToDate =
+                video.sendVideos?.[0]?.responseTime;
               const responseTime = new Date(
                 video.sendVideos?.[0]?.responseTime
               );
-              if (currentTime > responseTime) {
+              if (
+                responseTimeWithoutConvertToDate !=
+                  "1970-01-01T00:00:00.000Z" &&
+                currentTime > responseTime
+              ) {
                 return (
                   <>
                     {/* <div>{video.video_id}</div> */}

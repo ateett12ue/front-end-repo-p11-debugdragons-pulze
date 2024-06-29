@@ -20,32 +20,32 @@ export function LogOutPopUp() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <span className="flex flex-row font-[poppins] cursor-pointer font-light text-xs text-left justify-start items-center m-1 text-[#DC2626]">
+        <span className="flex flex-row font-[Poppins] cursor-pointer font-light text-xs text-left justify-start items-center m-1 text-[#DC2626]">
           Logout
         </span>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] sm:max-h-[345px] flex flex-col justify-center items-center rounded-lg border border-slate-500">
         <DialogHeader>
-          <div className="scale-50 justify-center ml-6 mt-[-60px]">
+          <div className="scale-50  justify-center ml-6 mt-[-60px]">
             <FlaggIcon />
           </div>
-          <DialogTitle className="flex font-[Inter] font-semibold justify-center items-center text-3xl mt-[-20px]">
+          <DialogTitle className="flex  font-semibold justify-center items-center text-2xl ">
             pulze
           </DialogTitle>
-          <DialogDescription className="font-poppins font-medium text-xl text-center text-[#4B5563] py-4">
+          <DialogDescription className=" font-medium text-lg text-center text-[#4B5563] py-4">
             You can log back at any time
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex flex-col gap-8 justify-center items-center">
           <Button
             type="submit"
-            className="bg-[#D4D4D8] hover:bg-[#D4D4D8] w-28 rounded-r-md font-[Inter] font-semibold text-base text-black"
+            className="bg-[#D4D4D8] hover:bg-[#D4D4D8] w-28 rounded-r-md  font-semibold text-md text-black"
           >
             Cancel
           </Button>
           <Button
             type="submit"
-            className="bg-[#8645FF] hover:bg-[#8645FF] w-28 rounded-r-md font-[Inter] font-semibold text-base"
+            className="bg-[#8645FF] hover:bg-[#8645FF] w-28 rounded-r-md font-semibold text-md"
             onClick={logOut}
           >
             Logout

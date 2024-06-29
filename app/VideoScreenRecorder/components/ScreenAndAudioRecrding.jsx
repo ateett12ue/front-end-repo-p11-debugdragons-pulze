@@ -227,29 +227,32 @@ const ScreenAndAudioRecorder = forwardRef((props, ref) => {
       formData.append("typeComment", type);
 
       console.log(formData);
-      // const response = await fetch(
-      //   `http://localhost:8080/api/comments/createvideocomment/${videoId}`,
-      //   {
-      //     method: "POST",
-      //     body: formData,
-      //   }
-      // );
+      const response = await fetch(
+        `https://back-end-repo-p11-debugdragons-pulze.onrender.com/api/comments/createvideocomment/${videoId}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-      const response = await fetchData({
-        url: `/comments/createvideocomment/${videoId}`,
-        method: "post",
-        body: formData,
-      });
+      // const response = await fetchData({
+      //   url: `/comments/createvideocomment/${videoId}`,
+      //   method: "post",
+      //   body: formData,
+      // });
+      if (!response) {
+        console.error(`Error uploading video:`);
+      }
 
-      // const responseData = await response.json();
-      const { result, success } = response;
+      const responseData = await response.json();
+      const { result, success } = responseData;
       setResultVideosrccontext(
-        `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.key}`
+        `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.Key}`
       );
       console.log("Server Response:", responseData);
       console.log("Server Response result:", result);
       setResultVideosrc(
-        `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.key}`
+        `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.Key}`
       );
 
       // console.log(` src:${resultVideosrccontext}`);
