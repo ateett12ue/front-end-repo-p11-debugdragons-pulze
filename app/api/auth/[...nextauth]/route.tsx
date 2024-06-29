@@ -167,6 +167,17 @@ declare module "next-auth" {
 
 const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
+  cookies: {
+    sessionToken: {
+      name: "next-auth.session-token",
+      options: {
+        path: "/",
+        httpOnly: false,
+        sameSite: "lax",
+        secure: false
+      }
+    }
+  },
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID || "",
