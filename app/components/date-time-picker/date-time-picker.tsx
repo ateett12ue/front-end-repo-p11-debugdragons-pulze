@@ -116,9 +116,12 @@ const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerProps>(
               {/* <CalendarIcon className="h-5 w-5" /> */}
             </Button>
           </PopoverTrigger>
-          <PopoverContent ref={contentRef} className="w-full">
-            <div {...dialogProps} className="space-y-3">
-              <Tabs defaultValue="account" className="w-[300px]">
+          <PopoverContent
+            ref={contentRef}
+            className="w-full pointer-events-auto"
+          >
+            <div {...dialogProps} className="space-y-3 ">
+              <Tabs defaultValue="Respond by" className="w-[300px] z-auto">
                 <TabsList className=" w-full rounded-[10px] bg-gray-100 flex flex-row px-2">
                   <div className="flex  w-full rounded-[10px] bg-gray-100 ">
                     <TabsTrigger
@@ -186,11 +189,11 @@ const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerProps>(
                   {Boolean(state.hasTime) && (
                     <div className="flex  w-full pl-4 justify-start items-center">
                       <span>Time:</span>
-                      <TimeField
+                      {/* <TimeField
                         value={state.timeValue}
                         // eslint-disable-next-line @typescript-eslint/unbound-method
                         onChange={state.setTimeValue}
-                      />
+                      /> */}
                     </div>
                   )}
                 </TabsContent>
