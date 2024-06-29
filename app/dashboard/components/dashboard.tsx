@@ -117,7 +117,7 @@ const Dashboard = () => {
     useState(false);
   const [selectedUsers, setSelectedUsers] = useState<UserType[]>([]);
 
-  const { resultVideosrccontext } = useMyContext();
+  let { resultVideosrccontext } = useMyContext();
   const { data: session, status } = useSession();
 
   // const [videoIdFromVideoScreenRecorder, setVideoIdFromVideoScreenRecorder] =
@@ -383,6 +383,9 @@ const Dashboard = () => {
           recipients,
           videoObjectFromRecorder,
         });
+        resultVideosrccontext = "";
+        setIsNotRecording(true);
+        setMoveToRecordingCompleted(false);
       } else {
         console.error("Failed to send video.");
         // const data = await response.json();
@@ -607,7 +610,10 @@ const Dashboard = () => {
           <div className=" h-3/4 flex flex-col justify-start mt-9">
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="h-10 mx-4  bg-[#8645FF]  " size="lg">
+                <Button
+                  className="h-10 mx-4  bg-[#8645FF] hover:bg-[#7e3afb]  "
+                  size="lg"
+                >
                   New Pulze
                 </Button>
               </DialogTrigger>

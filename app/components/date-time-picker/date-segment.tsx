@@ -31,7 +31,7 @@ function DateSegment({ segment, state }: DateSegmentProps) {
       ref={ref}
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       className={cn(
-        "focus:rounded-[2px] focus:bg-accent focus:text-accent-foreground focus:outline-none",
+        "focus:rounded-[2px] focus:bg-accent focus:text-accent-foreground focus:outline-none ",
         // eslint-disable-next-line eslint-comments/no-duplicate-disable
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         segment.type !== "literal" ? "px-[1px]" : "",
